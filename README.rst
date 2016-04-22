@@ -2,7 +2,6 @@ python-typesafe
 ===============
 
 .. figure:: https://codeship.com/projects/e1c62c40-eae3-0133-52bc-5e83b9717393/status?branch=master
-:alt:
 
 Runtime type-checking for Python 2.7. Add decorators to your functions
 and properties to support runtime type safety of arguments and return
