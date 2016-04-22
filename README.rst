@@ -10,8 +10,7 @@ Usage
 
 .. code-block:: python
 
-    @returns(str)
-    @types(x=str)
+    @types(x=str, returns=str)
     def greet(x):
       return 'Hello ' + x
 

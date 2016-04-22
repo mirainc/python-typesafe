@@ -1,11 +1,12 @@
 # imports
 from typesafe import Any
 from typesafe.errors import NotATypeError, InvalidTypeError, UnlabeledArgError
+from types import NoneType
 import inspect
 
 
 # decorators
-def types(**kwargs):
+def args(**kwargs):
     intended_types = kwargs
     intended_types['self'] = Any
     
@@ -22,7 +23,7 @@ def types(**kwargs):
             if var_name not in intended_types.keys():
                 raise UnlabeledArgError(var_name)
         
-        def wrapper(*args, **kwargs):
+        def args_wrapper(*args, **kwargs):
             received_args = {}
             for index, arg_val in enumerate(args):
                 received_args[var_names[index]] = arg_val
@@ -38,7 +39,7 @@ def types(**kwargs):
             
             return function(*args, **kwargs)
         
-        return wrapper
+        return args_wrapper
         
     return decorator
 
@@ -50,12 +51,25 @@ def returns(ret_type):
         if ret_type is Any:
             return function
         
-        def wrapper(*args, **kwargs):
+        def ret_wrapper(*args, **kwargs):
             ret_val = function(*args, **kwargs)
             if not isinstance(ret_val, ret_type):
                 raise InvalidTypeError('returned value', ret_val, ret_type)
             return ret_val
         
-        return wrapper
+        return ret_wrapper
     
+    return decorator
+
+def types(**kwargs):
+    def decorator(function):
+        ret_type = NoneType
+        if 'returns' in kwargs:
+            ret_type = kwargs['returns']
+            del kwargs['returns']
+        
+        function = args(**kwargs)(function)
+        function = returns(ret_type)(function)
+        
+        return function
     return decorator

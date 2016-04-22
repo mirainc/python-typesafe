@@ -1,6 +1,6 @@
 # imports
 import unittest
-from typesafe import types, returns, Any
+from typesafe import args, types, returns, Any
 from typesafe.errors import NotATypeError, InvalidTypeError, UnlabeledArgError
 
 
@@ -34,9 +34,9 @@ class TestDecorators(unittest.TestCase):
             def test_str_return():
                 return 'Hello World'
                 
-    # test @types
+    # test @args
     def test_types(self):
-        @types(x=str)
+        @args(x=str)
         def test_str_arg(x):
             return x
             
@@ -44,7 +44,7 @@ class TestDecorators(unittest.TestCase):
         self.assertEqual(test_str_arg(str_arg), str_arg)
         
     def test_keyword_types(self):
-        @types(x=str, y=int)
+        @args(x=str, y=int)
         def test_args(x, y=0):
             return [x for _ in range(y)]
                 
@@ -54,14 +54,14 @@ class TestDecorators(unittest.TestCase):
         self.assertEqual(test_args(str_arg, y=int_arg), ['A', 'A'])
     
     def test_any_types(self):
-        @types(x=str, y=Any)
+        @args(x=str, y=Any)
         def test_args(x, y):
             return x + ' %s' % (y)
         
         self.assertEqual(test_args('Hello', 'World'), 'Hello World')
         
     def test_invalid_types(self):
-        @types(x=str)
+        @args(x=str)
         def test_int_arg(x):
             return x
         
@@ -71,7 +71,7 @@ class TestDecorators(unittest.TestCase):
             
     def test_unlabled_types(self):
         with self.assertRaises(UnlabeledArgError) as context:
-            @types(x=str)
+            @args(x=str)
             def test_args(x, y):
                 return x + y
         
@@ -79,15 +79,23 @@ class TestDecorators(unittest.TestCase):
     
     def test_non_type(self):
         with self.assertRaises(NotATypeError):
-            @types(x='str')
+            @args(x='str')
             def test_str_arg(x):
                 return x
                 
-    # test @types and @returns
-    # @types decorator must be closest to function call
+    # test @args and @returns
+    def test_combination(self):
+        @types(x=str, returns=str)
+        def test_str_arg(x):
+            return x
+            
+        str_arg = 'Hello World'
+        self.assertEqual(test_str_arg(str_arg), str_arg)
+    
+    # @args decorator must be closest to function call
     def test_types_and_returns(self):
         @returns(str)
-        @types(x=str)
+        @args(x=str)
         def test_str_arg(x):
             return x
             
@@ -106,7 +114,7 @@ class TestDecorators(unittest.TestCase):
                 return self.__x
                 
             @x.setter
-            @types(new_val=str)
+            @args(new_val=str)
             def x(self, new_val):
                 self.__x = new_val
     
