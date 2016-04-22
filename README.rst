@@ -8,7 +8,7 @@ types.
 Usage
 -----
 
-::python
+:: python
 
     @returns(str)
     @types(x=str)
