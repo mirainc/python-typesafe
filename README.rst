@@ -21,4 +21,5 @@ Installation
 ------------
 
 .. code-block:: bash
+
     $ pip install git+git://github.com/mirainc/python-typesafe.git@v0.1
