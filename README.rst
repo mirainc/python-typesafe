@@ -8,7 +8,7 @@ types.
 Usage
 -----
 
-:: python
+.. code-block:: python
 
     @returns(str)
     @types(x=str)
