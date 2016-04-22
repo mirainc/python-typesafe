@@ -16,3 +16,9 @@ Usage
 
     greet('user!')  # >>> Hello user!
     greet(42)  # >>> x (42) is not type <type 'str'>
+
+Installation
+------------
+
+::
+    $ pip install git+git://github.com/mirainc/python-typesafe.git@v0.1
