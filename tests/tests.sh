@@ -1,3 +1,4 @@
 #!/bin/bash
 
-python -m unittest tests.test_decorators.TestDecorators
+coverage run --include=typesafe/* -m unittest tests.test_decorators.TestDecorators
+coverage html
