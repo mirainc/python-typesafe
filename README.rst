@@ -19,9 +19,22 @@ Usage
     greet('user!')  # >>> Hello user!
     greet(42)  # >>> x (42) is not type <type 'str'>
 
+flake8 Integration
+------------------
+
+.. code-block:: python
+
+    def greet(x):
+      return 'Hello ' + x
+      
+.. code-block:: bash
+
+    $ flake8 greet.py
+    greet.py:1:1: T000 function 'greet' does not have a type declaration
+
 Installation
 ------------
 
 .. code-block:: bash
 
-    $ pip install git+git://github.com/mirainc/python-typesafe.git@v0.1
+    $ pip install git+git://github.com/mirainc/python-typesafe.git@v0.2
