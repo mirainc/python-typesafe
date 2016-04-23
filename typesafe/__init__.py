@@ -10,7 +10,7 @@ from decorators import args, returns, types   # flake8: noqa
 # flake8 type checkers
 class TypeChecker(object):
     name = 'typesafety'
-    version = __version__
+    version = 0.1
     _code = 'T0'
     _error_tmpl = 'T0 %r does not have a type declaration'
     
