@@ -4,4 +4,4 @@ class Any():
 
 
 # decorators
-from decorators import args, returns, types
+from decorators import args, returns, types   # flake8: noqa

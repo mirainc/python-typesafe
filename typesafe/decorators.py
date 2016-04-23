@@ -43,6 +43,7 @@ def args(**kwargs):
         
     return decorator
 
+
 def returns(ret_type):
     if not inspect.isclass(ret_type):
         raise NotATypeError(ret_type)
@@ -60,6 +61,7 @@ def returns(ret_type):
         return ret_wrapper
     
     return decorator
+
 
 def types(**kwargs):
     def decorator(function):
