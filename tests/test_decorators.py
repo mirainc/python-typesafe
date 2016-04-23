@@ -123,4 +123,3 @@ class TestDecorators(unittest.TestCase):
         
         y.x = 'Foo'
         self.assertEqual(y.x, 'Foo')
-    

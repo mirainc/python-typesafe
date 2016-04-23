@@ -1,5 +1,9 @@
 #!/bin/bash
 
 source .venv/bin/activate
-coverage run --include=typesafe/* -m unittest tests.test_decorators.TestDecorators
+pip install -r requirements.txt
+
+coverage run --include=typesafe/* -m unittest discover tests
 coverage html
+
+flake8 typesafe/
