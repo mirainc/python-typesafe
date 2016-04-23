@@ -2,7 +2,7 @@
 import ast
 import unittest
 import textwrap
-from typesafe import args, types, returns, Any, TypeChecker
+from typesafe import TypeChecker
 
 
 class TestCheck(unittest.TestCase):
