@@ -10,4 +10,7 @@ setup(
     author_email='patrick@atomic.vc',
     
     packages=find_packages(exclude=['tests']),
+    entry_points={
+        'flake8.extension': ['T0 = typesafe.TypeChecker'],
+    }
 )
