@@ -124,8 +124,3 @@ class TestDecorators(unittest.TestCase):
         y.x = 'Foo'
         self.assertEqual(y.x, 'Foo')
         
-    # test as lambda
-    def test_ignore_lambda(self):
-        test_func = lambda x: x
-        self.assertEqual(test_func('Hello World'), 'Hello World')
-        

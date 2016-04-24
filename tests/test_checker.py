@@ -113,3 +113,15 @@ class TestCheck(unittest.TestCase):
         bad_lineno = 2
         results = [err for err in checker.run()]
         self.assertEquals(results[0][0], bad_lineno)
+        
+    # test as lambda
+    def test_ignore_lambda(self):
+        code = textwrap.dedent("""
+            test = lambda x: x
+        """)
+        
+        tree = ast.parse(code)
+        checker = TypeChecker(tree, __file__)
+        
+        results = [err for err in checker.run()]
+        self.assertEquals(results, [])
