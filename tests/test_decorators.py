@@ -92,8 +92,8 @@ class TestDecorators(unittest.TestCase):
         str_arg = 'Hello World'
         self.assertEqual(test_str_arg(str_arg), str_arg)
     
-    # @args decorator must be closest to function call
     def test_types_and_returns(self):
+        # @args decorator must be closest to function call
         @returns(str)
         @args(x=str)
         def test_str_arg(x):
@@ -123,3 +123,9 @@ class TestDecorators(unittest.TestCase):
         
         y.x = 'Foo'
         self.assertEqual(y.x, 'Foo')
+        
+    # test as lambda
+    def test_ignore_lambda(self):
+        test_func = lambda x: x
+        self.assertEqual(test_func('Hello World'), 'Hello World')
+        
