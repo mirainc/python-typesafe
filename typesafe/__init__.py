@@ -1,6 +1,9 @@
 # global types
 class Any():
     pass
+    
+class Class():
+    pass
 
 from types import NoneType
 

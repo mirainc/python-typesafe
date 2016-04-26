@@ -1,6 +1,6 @@
 # imports
 import unittest
-from typesafe import args, types, returns, Any
+from typesafe import args, types, returns, Any, Class
 from typesafe.errors import NotATypeError, InvalidTypeError, UnlabeledArgError
 
 
@@ -123,4 +123,22 @@ class TestDecorators(unittest.TestCase):
         
         y.x = 'Foo'
         self.assertEqual(y.x, 'Foo')
+        
+    # test class as an arg type
+    def test_class_arg(self):
+        @args(x=Class)
+        def test_class_arg(x):
+            return x
+            
+        class_arg = str
+        self.assertEqual(test_class_arg(class_arg), class_arg)
+        
+    def test_invalid_class_arg(self):
+        @args(x=Class)
+        def test_class_arg(x):
+            return x
+            
+        class_arg = 'Hello World'
+        with self.assertRaises(InvalidTypeError):
+            _ = test_class_arg(class_arg)
         

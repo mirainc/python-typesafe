@@ -1,8 +1,18 @@
 # imports
-from typesafe import Any
+from typesafe import Any, Class
 from typesafe.errors import NotATypeError, InvalidTypeError, UnlabeledArgError
 from types import NoneType
 import inspect
+
+
+# helper functions
+def valid_type(arg_val, arg_type):
+    if arg_type is Any:
+        return True
+    elif arg_type is Class:
+        return inspect.isclass(arg_val)
+    else:
+        return isinstance(arg_val, arg_type)
 
 
 # decorators
@@ -31,10 +41,7 @@ def args(**kwargs):
             
             for var_name, arg_val in received_args.items():
                 var_type = intended_types[var_name]
-                if var_type is Any:
-                    continue
-                
-                if not isinstance(arg_val, var_type):
+                if not valid_type(arg_val, var_type):
                     raise InvalidTypeError(var_name, arg_val, var_type)
             
             return function(*args, **kwargs)
@@ -54,7 +61,7 @@ def returns(ret_type):
         
         def ret_wrapper(*args, **kwargs):
             ret_val = function(*args, **kwargs)
-            if not isinstance(ret_val, ret_type):
+            if not valid_type(ret_val, ret_type):
                 raise InvalidTypeError('returned value', ret_val, ret_type)
             return ret_val
         
