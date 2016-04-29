@@ -4,6 +4,10 @@ class Any():
     
 class Class():
     pass
+    
+class Optional():
+    def __init__(self, wrapped_type):
+        self._wrapped_type = wrapped_type
 
 from types import NoneType
 

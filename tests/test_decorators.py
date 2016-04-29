@@ -1,6 +1,6 @@
 # imports
 import unittest
-from typesafe import args, types, returns, Any, Class
+from typesafe import args, types, returns, Any, Class, Optional
 from typesafe.errors import NotATypeError, InvalidTypeError, UnlabeledArgError
 
 
@@ -33,6 +33,19 @@ class TestDecorators(unittest.TestCase):
             @returns('str')
             def test_str_return():
                 return 'Hello World'
+                
+    def test_return_optional_type(self):
+        @returns(Optional(str))
+        def test_str_return():
+            return 'Hello World'
+        
+        self.assertEqual(test_str_return(), 'Hello World')
+        
+        @returns(Optional(str))
+        def test_none_return():
+            return None
+        
+        self.assertEqual(test_none_return(), None)
                 
     # test @args
     def test_types(self):

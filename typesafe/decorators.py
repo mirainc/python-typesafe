@@ -1,16 +1,28 @@
 # imports
-from typesafe import Any, Class
+from typesafe import Any, Class, Optional
 from typesafe.errors import NotATypeError, InvalidTypeError, UnlabeledArgError
 from types import NoneType
 import inspect
 
 
 # helper functions
+def is_type(arg_type):
+    if isinstance(arg_type, Optional):
+        return is_type(arg_type._wrapped_type)
+    
+    return inspect.isclass(arg_type)
+
+
 def valid_type(arg_val, arg_type):
     if arg_type is Any:
         return True
     elif arg_type is Class:
         return inspect.isclass(arg_val)
+    elif isinstance(arg_type, Optional):
+        return (
+            valid_type(arg_val, arg_type._wrapped_type) or
+            valid_type(arg_val, NoneType)
+        )
     else:
         return isinstance(arg_val, arg_type)
 
@@ -21,7 +33,7 @@ def args(**kwargs):
     intended_types['self'] = Any
     
     for var_name, var_type in intended_types.items():
-        if not inspect.isclass(var_type):
+        if not is_type(var_type):
             raise NotATypeError(var_type)
     
     def decorator(function):
@@ -49,7 +61,7 @@ def args(**kwargs):
 
 
 def returns(ret_type):
-    if not inspect.isclass(ret_type):
+    if not is_type(ret_type):
         raise NotATypeError(ret_type)
     
     def decorator(function):
