@@ -10,6 +10,7 @@ from types import NoneType
 
 # decorators
 from decorators import args, returns, types   # flake8: noqa
+from properties import add_property  # flake8: noqa
 
 
 # flake8 type checkers

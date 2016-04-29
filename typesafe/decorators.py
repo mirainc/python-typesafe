@@ -25,11 +25,8 @@ def args(**kwargs):
             raise NotATypeError(var_type)
     
     def decorator(function):
-        var_names = function.func_code.co_varnames
+        var_names = inspect.getargspec(function).args
         for var_name in var_names:
-            if var_name == '_':
-                continue
-                
             if var_name not in intended_types.keys():
                 raise UnlabeledArgError(var_name)
         
