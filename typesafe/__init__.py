@@ -8,6 +8,7 @@ class Class():
 class Optional():
     def __init__(self, wrapped_type):
         self._wrapped_type = wrapped_type
+opt = Optional
 
 from types import NoneType
 
