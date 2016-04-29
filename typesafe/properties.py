@@ -8,7 +8,8 @@ def add_property(self, property_key, property_type):
     # adds a property() with the given type
     
     # expects a variable with the format "_property_name"
-    # variables with the format "__property_name" will be obfuscated and unusable
+    # variables with the format "__property_name" will be
+    #   obfuscated and unusable
     
     variable_key = '_' + property_key
     
