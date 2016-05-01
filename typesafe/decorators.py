@@ -9,6 +9,12 @@ import inspect
 def is_type(arg_type):
     if isinstance(arg_type, Optional):
         return is_type(arg_type._wrapped_type)
+    elif isinstance(arg_type, list):
+        return reduce(
+            lambda all_types, next: all_types and is_type(next),
+            arg_type,
+            True
+        )
     
     return inspect.isclass(arg_type)
 
@@ -18,6 +24,12 @@ def valid_type(arg_val, arg_type):
         return True
     elif arg_type is Class:
         return inspect.isclass(arg_val)
+    elif isinstance(arg_type, list):
+        return reduce(
+            lambda any_type, next: any_type or isinstance(arg_val, next),
+            arg_type,
+            False
+        )
     elif isinstance(arg_type, Optional):
         return (
             valid_type(arg_val, arg_type._wrapped_type) or

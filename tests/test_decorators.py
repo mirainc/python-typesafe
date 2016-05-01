@@ -47,6 +47,19 @@ class TestDecorators(unittest.TestCase):
         
         self.assertEqual(test_none_return(), None)
                 
+    def test_return_list_of_types(self):
+        @returns([unicode, str])
+        def test_str_return():
+            return 'Hello World'
+        
+        self.assertEqual(test_str_return(), 'Hello World')
+        
+        @returns(opt(str))
+        def test_none_return():
+            return None
+        
+        self.assertEqual(test_none_return(), None)
+                
     # test @args
     def test_types(self):
         @args(x=str)
