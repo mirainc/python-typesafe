@@ -23,6 +23,11 @@ def valid_type(arg_val, arg_type):
             valid_type(arg_val, arg_type._wrapped_type) or
             valid_type(arg_val, NoneType)
         )
+    elif arg_type == str:  # include support for unicode
+        return (
+            isinstance(arg_val, str) or
+            isinstance(arg_val, unicode)
+        )
     else:
         return isinstance(arg_val, arg_type)
 
