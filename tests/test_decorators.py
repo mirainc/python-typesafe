@@ -109,6 +109,13 @@ class TestDecorators(unittest.TestCase):
             def test_str_arg(x):
                 return x
                 
+    def test_untyped_args_kwargs(self):
+        @args(first_arg=int)
+        def test_args(first_arg, *args, **kwargs):
+            return first_arg
+            
+        self.assertEqual(test_args(0, 1, two=2), 0)
+                
     # test @args and @returns
     def test_combination(self):
         @types(x=str, returns=str)

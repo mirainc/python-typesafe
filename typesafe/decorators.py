@@ -51,7 +51,9 @@ def args(**kwargs):
             raise NotATypeError(var_type)
     
     def decorator(function):
-        var_names = inspect.getargspec(function).args
+        inspected = inspect.getargspec(function)
+        var_names = inspected.args
+        
         for var_name in var_names:
             if var_name not in intended_types.keys():
                 raise UnlabeledArgError(var_name)
@@ -60,10 +62,22 @@ def args(**kwargs):
         def args_wrapper(*args, **kwargs):
             received_args = {}
             for index, arg_val in enumerate(args):
+                
+                if index >= len(var_names):
+                    if inspected.varargs is not None:
+                        # *args specified, skip trailing args
+                        continue
+                
                 received_args[var_names[index]] = arg_val
             received_args.update(kwargs)
             
             for var_name, arg_val in received_args.items():
+                
+                if var_name not in intended_types:
+                    if inspected.keywords is not None:
+                        # **kwargs specified, skip trailing args
+                        continue
+                
                 var_type = intended_types[var_name]
                 if not valid_type(arg_val, var_type):
                     raise InvalidTypeError(var_name, arg_val, var_type)
