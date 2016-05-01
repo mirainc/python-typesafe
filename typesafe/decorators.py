@@ -2,7 +2,9 @@
 from typesafe import Any, Class, Optional
 from typesafe.errors import NotATypeError, InvalidTypeError, UnlabeledArgError
 from types import NoneType
+
 import inspect
+from functools import wraps
 
 
 # helper functions
@@ -54,6 +56,7 @@ def args(**kwargs):
             if var_name not in intended_types.keys():
                 raise UnlabeledArgError(var_name)
         
+        @wraps(function)
         def args_wrapper(*args, **kwargs):
             received_args = {}
             for index, arg_val in enumerate(args):
@@ -80,6 +83,7 @@ def returns(ret_type):
         if ret_type is Any:
             return function
         
+        @wraps(function)
         def ret_wrapper(*args, **kwargs):
             ret_val = function(*args, **kwargs)
             if not valid_type(ret_val, ret_type):
