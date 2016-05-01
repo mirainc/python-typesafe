@@ -38,3 +38,8 @@ Installation
 .. code-block:: bash
 
     $ pip install git+git://github.com/mirainc/python-typesafe.git@v0.2
+    
+.. code-block:: bash
+    
+    # in requirements.txt
+    -e git://github.com/mirainc/python-typesafe.git@v0.2#egg=typesafe
