@@ -19,6 +19,27 @@ Usage
     greet('user!')  # >>> Hello user!
     greet(42)  # >>> x (42) is not type <type 'str'>
 
+.. code-block:: python
+
+    # Types
+    Any  # represents any type; ignored by checker
+    Class  # represents any type; analogous to types.TypeType
+
+    Optional  # optional type; allows for given type or None value
+    opt(str)  # optional type alias with a type value of str
+
+.. code-block:: python
+
+    # Properties
+    class TypesafeClass(object):
+      def __init__(self):
+        self._x = ''
+        add_property(self, 'x', str)
+
+    instance = TypesafeClass()
+    instance.x  # >>> ''
+
+
 flake8 Integration
 ------------------
 
@@ -26,7 +47,7 @@ flake8 Integration
 
     def greet(x):
       return 'Hello ' + x
-      
+
 .. code-block:: bash
 
     $ flake8 greet.py
@@ -37,9 +58,9 @@ Installation
 
 .. code-block:: bash
 
-    $ pip install git+git://github.com/mirainc/python-typesafe.git@v0.2
-    
+    $ pip install git+git://github.com/mirainc/python-typesafe.git@v0.3
+
 .. code-block:: bash
-    
+
     # in requirements.txt
-    -e git://github.com/mirainc/python-typesafe.git@v0.2#egg=typesafe
+    -e git://github.com/mirainc/python-typesafe.git@v0.3#egg=typesafe
